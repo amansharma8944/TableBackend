@@ -21,8 +21,12 @@ export const sendMaill=async(req,res)=>{
     // console.log(req.body.dataOfSelectedUser)
 
 
-    await SendMail(req.body.dataOfSelectedUser)
-    res.status(200).send("email sent")
+    try {
+        await SendMail(req.body.dataOfSelectedUser)
+        return res.status(200).send("email sent")
+    } catch (error) {
+        console.log(error)
+    }
 
 
 }
@@ -31,9 +35,15 @@ export const sendMaill=async(req,res)=>{
 export const saveUserDetail=async (req,res)=>{
 
 // console.log(req.body)
-const statusOfinsert=await modelofdata(req.body.AllInputData)
-await statusOfinsert.save()
-res.status(200).send("saved user")
+
+try {
+    const statusOfinsert=await modelofdata(req.body.AllInputData)
+    await statusOfinsert.save()
+    return res.status(200).send("saved user")
+    
+} catch (error) {
+    console.log(error)
+}
 
 
 }
@@ -41,19 +51,30 @@ res.status(200).send("saved user")
 
 export const getdataForUpdate=async (req,res)=>{
 
+    try {
+        const dataforsend =await modelofdata.findOneAndUpdate({Name:req.params.Name,Email:req.params.Email,Phone:req.params.Phone},{Name:req.body.AllInputData.Name,Email:req.body.AllInputData.Email,Phone:req.body.AllInputData.Phone,Hobby:req.body.AllInputData.Hobby})
+        return res.status(200).send("updated successfully")
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
     
-    const dataforsend =await modelofdata.findOneAndUpdate({Name:req.params.Name,Email:req.params.Email,Phone:req.params.Phone},{Name:req.body.AllInputData.Name,Email:req.body.AllInputData.Email,Phone:req.body.AllInputData.Phone,Hobby:req.body.AllInputData.Hobby})
     
     
-    
-    res.status(200).send("updated successfully")
     
 }
 
 export const deleteReq=async (req,res)=>{
     
+    try {
+        
+        const dataforsend =await modelofdata.findOneAndDelete({Name:req.params.Name,Email:req.params.Email,Phone:req.params.Phone})
+        return res.status(200).send("deleted")
+    } catch (error) {
+        console.log(error)
+        
+    }
    
-    const dataforsend =await modelofdata.findOneAndDelete({Name:req.params.Name,Email:req.params.Email,Phone:req.params.Phone})
 
-    res.status(200).send("deleted")
 }
