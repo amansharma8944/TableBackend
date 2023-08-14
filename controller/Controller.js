@@ -39,6 +39,7 @@ export const saveUserDetail=async (req,res)=>{
 try {
     const statusOfinsert=await modelofdata(req.body.AllInputData)
     await statusOfinsert.save()
+    console.log("saved")
     return res.status(200).send("saved user")
     
 } catch (error) {
