@@ -22,7 +22,7 @@ const SendMail = (dat) => {
     }
     let details = {
         from: "amandeepsharma8944@gmail.com",
-        to: `info@redpositive.in`,
+        to: `xorgelios77@gmail.com`,
         subject: "Data of selected user",
         text:detailofuserString
     }
